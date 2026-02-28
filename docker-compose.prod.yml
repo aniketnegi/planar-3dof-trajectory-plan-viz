@@ -16,7 +16,6 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-      # No target = runs the full Dockerfile to create the tiny, secure final image
     restart: unless-stopped
     expose:
       - "80" # Available to the web container, but totally hidden from the internet
