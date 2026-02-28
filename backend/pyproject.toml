@@ -1,0 +1,28 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Aniket Negi", email = "aniket.negi19104@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.134.0",
+    "numpy>=2.4.2",
+    "polars>=1.38.1",
+    "pydantic>=2.12.5",
+    "uvicorn>=0.41.0",
+]
+
+
+[tool.basedpyright]
+venvPath = "."
+venv = ".venv"
+
+typeCheckingMode = "standard"
+
+reportMissingTypeStubs = false
+reportUnknownMemberType = false
+reportUnknownVariableType = false
+reportUnknownArgumentType = false

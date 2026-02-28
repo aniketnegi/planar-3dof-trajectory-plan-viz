@@ -1,0 +1,45 @@
+services:
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: builder # Stops before creating the stripped-down final image
+    ports:
+      - "8000:80"
+    env_file:
+      - .env.development
+    volumes:
+      # Syncs your local backend code to the container for hot-reloading
+      - ./backend:/app
+      # This anonymous volume prevents your local machine from accidentally overwriting the container's isolated Python environment
+      - /app/.venv
+    command:
+      [
+        "uv",
+        "run",
+        "fastapi",
+        "dev",
+        "app/main.py",
+        "--port",
+        "80",
+        "--host",
+        "0.0.0.0",
+      ]
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: deps # Stops after installing node_modules, skips the 'build' step entirely
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    env_file:
+      - .env.development
+    volumes:
+      # Syncs your local frontend code to the container for Next.js Fast Refresh
+      - ./frontend:/app
+      # This anonymous volume protects the Linux node_modules installed inside the container from being overwritten by your local files
+      - /app/node_modules
+    command: ["bun", "run", "dev"]

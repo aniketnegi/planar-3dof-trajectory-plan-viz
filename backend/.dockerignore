@@ -1,0 +1,33 @@
+# Git
+.git
+.gitignore
+
+# Python/uv Virtual Environments (CRITICAL)
+.venv/
+venv/
+env/
+
+# Python Cache & Bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.pytest_cache/
+.coverage
+
+# Environment Variables (Security)
+.env
+.env.*
+*.env
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker-related
+Dockerfile
+.dockerignore

@@ -1,0 +1,7 @@
+viz.aniketnegi.com {
+    # Compress responses for better performance
+    encode gzip zstd
+
+    # Route all traffic to the Next.js container on its internal port
+    reverse_proxy web:3000
+}

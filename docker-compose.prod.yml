@@ -1,0 +1,42 @@
+services:
+  caddy:
+    image: caddy:latest
+    restart: unless-stopped
+    ports:
+      - "80:80" # Public HTTP
+      - "443:443" # Public HTTPS
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - web
+
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      # No target = runs the full Dockerfile to create the tiny, secure final image
+    restart: unless-stopped
+    expose:
+      - "80" # Available to the web container, but totally hidden from the internet
+    env_file:
+      - .env.production
+
+  web:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      # No target = runs the full standalone Next.js build
+    restart: unless-stopped
+    expose:
+      - "3000" # Available to Caddy, but totally hidden from the internet
+    depends_on:
+      - api
+    env_file:
+      - .env.production
+
+# Required for Caddy to save Let's Encrypt SSL certificates permanently
+volumes:
+  caddy_data:
+  caddy_config:
