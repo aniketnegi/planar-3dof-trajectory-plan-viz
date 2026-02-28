@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
         source: "/api/:path*",
         // ...will be secretly proxied by the Next.js server to your FastAPI container
         // Note: 'api' is the service name from the docker-compose.yml
-        destination: `${process.env.INTERNAL_API_URL}/api/:path*`,
+        destination: `${process.env.INTERNAL_API_URL || "http://api:80"}/api/:path*`,
       },
     ];
   },
