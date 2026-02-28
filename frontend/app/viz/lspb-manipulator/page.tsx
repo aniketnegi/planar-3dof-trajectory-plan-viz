@@ -232,7 +232,7 @@ export default function LspbDashboard() {
     setError(null);
 
     try {
-      const res = await fetch("http://localhost:8000/api/generate_trajectory", {
+      const res = await fetch("/api/generate_trajectory", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
