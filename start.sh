@@ -13,7 +13,7 @@ if [ "$1" = "dev" ]; then
 
 elif [ "$1" = "prod" ]; then
     echo "starting prod (detached mode)..."
-    docker compose -f docker-compose.prod.yml up --build -d $FORCE_FLAG
+    docker compose --env-file .env.production -f docker-compose.prod.yml up --build -d $FORCE_FLAG
     echo "prod services are running in the bg."
 
 else
